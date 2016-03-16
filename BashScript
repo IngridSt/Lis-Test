@@ -1,5 +1,5 @@
 
-n Download ()
+function Download ()
 {
         pushd /tmp/
         wget http://cdn.primatelabs.com/Geekbench-3.3.2-Linux.tar.gz
