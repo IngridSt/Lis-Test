@@ -1,0 +1,44 @@
+
+n Download ()
+{
+        pushd /tmp/
+        wget http://cdn.primatelabs.com/Geekbench-3.3.2-Linux.tar.gz
+        if [ $? -ne 0 ]; then
+        echo "Error: unable to download geekbench"
+        else echo "Downloading geekbench completed."
+        fi
+        popd
+}
+
+function InstallGeekbenchDependencies ()
+{
+        [[ $(uname -p) = "x86_64" ]] && sudo apt-get install -y libc6:i386 libstdc++6:i386
+        if [ $? -eq 0 ]; then
+        echo "Error: unable to install dependencies"
+        else echo "Installing Geekbench Dependencies completed."
+        fi
+}
+
+function InstallGeekbench ()
+{
+        pushd /tmp/
+        tar xvf Geekbench-3.3.2-Linux.tar.gz
+        popd
+}
+
+function RunExport ()
+{
+        pushd /tmp/dist/Geekbench-3.3.2-Linux
+        [[ $(uname -p) = "x86_64" ]] && ./geekbench_x86_64 >> log.txt
+        [[ $(uname -p) = "x86_32" ]] && ./geekbench_x86_32 >> log.txt
+        popd
+}
+
+
+
+Download
+InstallGeekbenchDependencies
+InstallGeekbench
+RunExport
+
+
