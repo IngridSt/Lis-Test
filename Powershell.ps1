@@ -242,10 +242,75 @@ exec_bash C:\Users\Administrator\Desktop\Script_Ingrid\plink.exe ingrid 192.168.
 }
 copy_bash C:\Users\Administrator\Desktop\Script_Ingrid C:\Users\Administrator\Desktop\Script_Ingrid\Test.txt ingrid@192.168.133.114: /home/ingrid
 
+
 function Copiere_Bash_Script
 {
- param([string]$sshKey, [int]$ipv, [string]$PathofScript )
- C:\Users\Administrator\Desktop\Script_Ingrid\pscp.exe -q -i ssh\${sshKey} root@${ipv}:${PathofScript} 
+     param([string]$sshKey, [int]$ipv, [string]$PathofScript )
+     if ($sshKey -eq "")
+           {
+              Write-Host "Enter a key."
+           }
+     if ($ipv -eq "")
+           {
+              Write-Host "Enter an IP."
+           }
+     if ($PathofScript -eq "")
+           {
+              Write-Host "Enter a path for your script."
+           }
+    if (-not (Test-Path $PathofScript))
+           {
+               Write-Host "The path wasn't detected!"
+           }
+     
+     
+     C:\Users\Administrator\Desktop\Script_Ingrid\pscp -q -i ssh\${sshKey} root@${ipv}:${PathofScript} .
 }
+
+
+function Copiere_Bash_Script_cmdlet
+{
+    param([string]$vmName, [string]$hvServer,  [string]$Source_Path, [string]$DestinationPath)
+          
+       if ($vmName -eq "")
+           {
+              Write-Host "Enter the name of the VM."
+           }
+        if ($hvServer -eq "")
+           {
+              Write-Host "Enter the name of the computer."
+           }
+       if ($Source_Path -eq "")
+           {
+              Write-Host "Enter a source path."
+           }
+       if ($DestinationPath -eq "")
+           {
+              Write-Host "Enter a destination path."
+           }
+             
+       if (-not (Test-Path $Source_Path))
+           {
+                Write-Host "The path wasn't detected!"
+           }
+       if (-not (Test-Path $DestinationPath))
+           {
+                Write-Host "The path wasn't detected!"
+           }
+       if ($Error.Count -gt 0)
+           {
+	        Write-Host "Test Failed. Error occured!" 
+           }
+       Copy-VMFile -vmName $vmName -ComputerName $hvServer -SourcePath $Source_Path -DestinationPath $DestinationPath -FileSource Host -ErrorAction SilentlyContinue
+}
+
+
+
+
+
+
+ 
+
+
 
 
