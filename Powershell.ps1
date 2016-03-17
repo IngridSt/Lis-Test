@@ -241,3 +241,11 @@ exec_bash C:\Users\Administrator\Desktop\Script_Ingrid\plink.exe ingrid 192.168.
       C:\Users\Administrator\Desktop\Script_Ingrid\pscp ${path_copied_file} ${username}@${hostname}:${path_where_sent}
 }
 copy_bash C:\Users\Administrator\Desktop\Script_Ingrid C:\Users\Administrator\Desktop\Script_Ingrid\Test.txt ingrid@192.168.133.114: /home/ingrid
+
+function Copiere_Bash_Script
+{
+ param([int]$ipv, [string]$PathofScript )
+ C:\Users\Administrator\Desktop\Script_Ingrid\pscp.exe -q -i ssh\${sshKey} root@${ipv}:${PathofScript} .
+}
+
+
