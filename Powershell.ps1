@@ -1,4 +1,4 @@
-﻿   function Start
+function Start
    {
    param( [string] $vm )
    if ($vm -eq "")
@@ -22,7 +22,7 @@
 
   }
 
- Start-VM Machine-ingrid_stoleru
+ Start-VM Machine-ingrid_stoleru 
 
 
 function setvmRam
@@ -139,11 +139,11 @@ revert_checkpoint Machine-ingrid_stoleru MyfirstCheckpoint
 
 function exec_bash
 {
-param([string]$plink_location,  [string]$username, [string]$Ip_Addr, [string]$passwd, [string]$command)
+param([string]$plink_location,  [string]$username, [string]$Ip_Addr, [string]$command)
     if ($plink_location -eq "")
         {
             Write-Host "Enter a Path Name"
-         }
+        }
     if (-not (Test-Path $plink_location))
     {
         Write-Host "Plink.exe not found, trying to dowload"
@@ -174,19 +174,16 @@ param([string]$plink_location,  [string]$username, [string]$Ip_Addr, [string]$pa
                 {
                     Write-Host "Enter an Ip_Addr"
                 }
-            if($passwd -eq "")
-                {
-                    Write-Host "Enter a password"
-                }
             if($command -eq "")
                 {
                     Write-Host "Enter a command"
                 }
-        iex "$plink_location -ssh ${username}@${Ip_Addr} -pw ${passwd} $command"  
+        iex "$plink_location -ssh ${username}@${Ip_Addr} -i .\.ssh\ingridsave.ppk ls"  
   
 }
 
-exec_bash C:\Users\Administrator\Desktop\Script_Ingrid\plink.exe ingrid 192.168.133.114 ls
+ exec_bash C:\Users\Administrator\Desktop\Script_Ingrid\plink.exe ingrid 192.168.133.114 ls
+
 
  function copy_bash
  {
@@ -240,16 +237,13 @@ exec_bash C:\Users\Administrator\Desktop\Script_Ingrid\plink.exe ingrid 192.168.
             
       C:\Users\Administrator\Desktop\Script_Ingrid\pscp ${path_copied_file} ${username}@${hostname}:${path_where_sent}
 }
-copy_bash C:\Users\Administrator\Desktop\Script_Ingrid C:\Users\Administrator\Desktop\Script_Ingrid\Test.txt ingrid@192.168.133.114: /home/ingrid
+copy_bash C:\Users\Administrator\Desktop\Script_Ingrid /home/ingrid/new_dir/log.txt ingrid@192.168.133.114:C:\Users\Administrator\Desktop\Script_Ingrid\
+
 
 
 function Copiere_Bash_Script
 {
-     param([string]$sshKey, [int]$ipv, [string]$PathofScript )
-     if ($sshKey -eq "")
-           {
-              Write-Host "Enter a key."
-           }
+     param([string]$ipv, [string]$PathofScript)
      if ($ipv -eq "")
            {
               Write-Host "Enter an IP."
@@ -258,58 +252,51 @@ function Copiere_Bash_Script
            {
               Write-Host "Enter a path for your script."
            }
-    if (-not (Test-Path $PathofScript))
-           {
-               Write-Host "The path wasn't detected!"
-           }
-     
-     
-     C:\Users\Administrator\Desktop\Script_Ingrid\pscp -q -i ssh\${sshKey} root@${ipv}:${PathofScript} .
+    
+     C:\Users\Administrator\Desktop\Script_Ingrid\pscp -i .\.ssh\ingridsave.ppk ingrid@${ipv}:${PathofScript} .
 }
 
+Copiere_Bash_Script 192.168.133.114 /home/ingrid/new_dir/log2.txt 
 
-function Copiere_Bash_Script_cmdlet
-{
-    param([string]$vmName, [string]$hvServer,  [string]$Source_Path, [string]$DestinationPath)
-          
-       if ($vmName -eq "")
-           {
-              Write-Host "Enter the name of the VM."
-           }
-        if ($hvServer -eq "")
-           {
-              Write-Host "Enter the name of the computer."
-           }
-       if ($Source_Path -eq "")
-           {
-              Write-Host "Enter a source path."
-           }
-       if ($DestinationPath -eq "")
-           {
-              Write-Host "Enter a destination path."
-           }
-             
-       if (-not (Test-Path $Source_Path))
-           {
-                Write-Host "The path wasn't detected!"
-           }
-       if (-not (Test-Path $DestinationPath))
-           {
-                Write-Host "The path wasn't detected!"
-           }
-       if ($Error.Count -gt 0)
-           {
-	        Write-Host "Test Failed. Error occured!" 
-           }
-       Copy-VMFile -vmName $vmName -ComputerName $hvServer -SourcePath $Source_Path -DestinationPath $DestinationPath -FileSource Host -ErrorAction SilentlyContinue
-}
-
-
-
-
+#Aceasta functie nu permite realizarea instructiunii din task
+#function Copiere_Bash_Script_cmdlet
+#{
+#    param([string]$vmName, [string]$hvServer,  [string]$Source_Path, [string]$DestinationPath)
+#          
+#       if ($vmName -eq "")
+#           {
+#              Write-Host "Enter the name of the VM."
+#           }
+#        if ($hvServer -eq "")
+#           {
+#              Write-Host "Enter the name of the computer."
+#           }
+#       if ($Source_Path -eq "")
+#           {
+#              Write-Host "Enter a source path."
+#           }
+#       if ($DestinationPath -eq "")
+#           {
+#              Write-Host "Enter a destination path."
+#           }
+#             
+#       if (-not (Test-Path $DestinationPath))
+#           {
+#                Write-Host "The path wasn't detected!"
+#           }
+#       #if ($Error.Count -gt 0)
+#       #    {
+#	   #         Write-Host "Test Failed. Error occured!" 
+#       #    }
+#       Copy-VMFile -vmName $vmName -ComputerName $hvServer -SourcePath $Source_Path -DestinationPath $DestinationPath -FileSource Host #-ErrorAction SilentlyContinue
+#}
+#
+#
+#Copiere_Bash_Script_cmdlet Machine-ingrid_stoleru localhost /home/ingrid/new_dir/log.txt C:\Users\Administrator\Desktop\Script_Ingrid C:\Users\Administrator\Desktop\Script_Ingrid 
 
 
  
+
 
 
 
