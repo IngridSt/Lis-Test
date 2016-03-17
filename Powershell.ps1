@@ -245,7 +245,7 @@ copy_bash C:\Users\Administrator\Desktop\Script_Ingrid C:\Users\Administrator\De
 function Copiere_Bash_Script
 {
  param([int]$ipv, [string]$PathofScript )
- C:\Users\Administrator\Desktop\Script_Ingrid\pscp.exe -q -i ssh\${sshKey} root@${ipv}:${PathofScript} .
+ C:\Users\Administrator\Desktop\Script_Ingrid\pscp.exe -q -i ssh\${sshKey} root@${ipv}:${PathofScript} 
 }
 
 
