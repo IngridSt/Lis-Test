@@ -237,7 +237,7 @@ param([string]$plink_location,  [string]$username, [string]$Ip_Addr, [string]$co
             
       C:\Users\Administrator\Desktop\Script_Ingrid\pscp ${path_copied_file} ${username}@${hostname}:${path_where_sent}
 }
-copy_bash C:\Users\Administrator\Desktop\Script_Ingrid /home/ingrid/new_dir/log.txt ingrid@192.168.133.114:C:\Users\Administrator\Desktop\Script_Ingrid\
+C:\Users\Administrator\Desktop\Script_Ingrid\pscp.exe -i .\.ssh\ingridsave.ppk C:\Users\Administrator\Desktop\Script_Ingrid\Bash_Script.txt ingrid@192.168.133.114:/home/ingrid/new_dir/script.sh
 
 
 
