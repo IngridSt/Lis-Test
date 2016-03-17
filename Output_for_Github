@@ -1,14 +1,16 @@
+Bash Script:
+
 /tmp ~/new_dir
 --2016-03-17 20:56:57--  http://cdn.primatelabs.com/Geekbench-3.3.2-Linux.tar.gz
 Resolving cdn.primatelabs.com (cdn.primatelabs.com)... 52.85.59.10, 52.85.59.150, 52.85.59.37, ...
 Connecting to cdn.primatelabs.com (cdn.primatelabs.com)|52.85.59.10|:80... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 9972911 (9.5M) [application/x-gzip]
-Saving to: ‘Geekbench-3.3.2-Linux.tar.gz.5’
+Saving to: â€˜Geekbench-3.3.2-Linux.tar.gz.5â€™
 
 100%[===================================================================================>] 9,972,911   6.39MB/s   in 1.5s
 
-2016-03-17 20:56:59 (6.39 MB/s) - ‘Geekbench-3.3.2-Linux.tar.gz.5’ saved [9972911/9972911]
+2016-03-17 20:56:59 (6.39 MB/s) - â€˜Geekbench-3.3.2-Linux.tar.gz.5â€™ saved [9972911/9972911]
 
 Downloading geekbench completed.
 ~/new_dir
@@ -30,5 +32,27 @@ Successful unzipping process.
 /tmp/dist/Geekbench-3.3.2-Linux ~/new_dir
 Successful run and export.
 ~/new_dir
+
+Script Powershell: 
+
+PS C:\Users\Administrator> setvmRam Machine-ingrid_stoleru 5 Add
+The amount of memory allocated at this moment is: 5
+
+PS C:\Users\Administrator> SetvCPU Machine-ingrid_stoleru 1 Add 1
+vm: Microsoft.HyperV.PowerShell.VirtualMachine
+VMName: Machine-ingrid_stoleru
+The number of vCPU's allocated at this moment is: 3
+
+PS C:\Users\Administrator> exec_bash C:\Users\Administrator\Desktop\Script_Ingrid\plink.exe ingrid 192.168.133.114 ls
+new_dir
+
+PS C:\Users\Administrator> Copiere_Bash_Script 192.168.133.114 /home/ingrid/new_dir/log.txt 
+
+log.txt                   | 0 kB |   0.7 kB/s | ETA: 00:00:00 | 100%
+
+PS C:\Users\Administrator> C:\Users\Administrator\Desktop\Script_Ingrid\pscp.exe -i .\.ssh\ingridsave.ppk C:\Users\Administrator\Desktop\Script_Ingrid\Bash_Script.txt ingrid@192.168.133.114:/home/ingrid/new_dir/script.sh
+
+Bash_Script.txt           | 1 kB |   1.0 kB/s | ETA: 00:00:00 | 100%
+
 
 
